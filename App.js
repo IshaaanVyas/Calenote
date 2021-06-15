@@ -1,10 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TextInput,FlatList } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, TextInput,FlatList,Button } from 'react-native';
 import WeeklyCalendar from 'react-native-weekly-calendar';
 import WeekView from 'react-native-week-view';
 import { Calendar } from 'react-native-big-calendar'
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import firebase from "./database/firebaseDB"
+import calendarScreen from './screens/calendarScreen'
+import addScreen from './screens/addScreen';
+import addModScreen from './screens/addModScreen';
+
+
+const Stack = createStackNavigator();
 
 export default function App() {
 
@@ -13,7 +21,7 @@ export default function App() {
   //some array that might use later --need to change name --right now it is an array that stores and displays all the classes of the selected module
   const [something, setSomething] = useState([]);
   //array to store all events
-  const [events, setEvents] = useState([]);
+  //const [events, setEvents] = useState([]);
 
 
   var NUSmods_URL = `https://api.nusmods.com/v2/2020-2021/modules/${text}.json`;
@@ -30,7 +38,20 @@ export default function App() {
       start: new Date(2021, 5, 6, 15, 45),
       end: new Date(2021, 5, 6, 16, 30),
     },
-  ]*/
+  ]
+
+  const events = [
+    {
+      title: 'Meeting',
+      start: new Date(2021, 5, 14, 10, 0),
+      end: new Date(2021, 5, 15, 10, 30),
+    },
+    {
+      title: 'Coffee break',
+      start: new Date(2021, 5, 6, 15, 45),
+      end: new Date(2021, 5, 6, 16, 30),
+    },
+  ]
 
 // every time text changes this useEffect is triggered
   useEffect(() => {
@@ -49,17 +70,26 @@ export default function App() {
 //renderItem function for flatlist
   function renderItem({item}) {
     return <Text>{item.classNo}</Text>
-  }
+  }*/
 
   
   return (
-
     /**<View style={styles.container}>
       <Text style={styles.title}>NUS MODS</Text>
       <TextInput style={styles.textBox} onChangeText={(text) => setText(text)} />
       <FlatList style={{width: '100%'}} data={something} renderItem={renderItem} />
     </View>*/
+    /**
+    <View style={styles.container}>
       <Calendar events={events} height={600} style={{marginTop: 30, width: "100%", marginRight: 10,}}/>
+    </View>*/
+    <NavigationContainer>
+      <Stack.Navigator mode="modal" headerMode="none">
+        <Stack.Screen name="CalendarScreen" component={calendarScreen} options={{headerShown: false}} />
+        <Stack.Screen name="Add" component={addScreen} />
+        <Stack.Screen name="AddMod" component={addModScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
