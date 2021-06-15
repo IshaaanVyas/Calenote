@@ -10,6 +10,11 @@ import firebase from "./database/firebaseDB"
 import calendarScreen from './screens/calendarScreen'
 import addScreen from './screens/addScreen';
 import addModScreen from './screens/addModScreen';
+import {YellowBox} from 'react-native';
+
+YellowBox.ignoreWarnings([
+  'Non-serializable values were found in the navigation state','YellowBox has been replaced with LogBox'
+]);
 
 
 const Stack = createStackNavigator();

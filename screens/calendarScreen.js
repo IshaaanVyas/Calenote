@@ -12,18 +12,8 @@ import { AntDesign } from '@expo/vector-icons';
 const calendarStack = createStackNavigator();
 
 function actualcalendarScreen({ route, navigation }) {
-    const events = [
-        {
-          title: 'Meeting',
-          start: new Date(2021, 5, 14, 10, 0),
-          end: new Date(2021, 5, 15, 10, 30),
-        },
-        {
-          title: 'Coffee break',
-          start: new Date(2021, 5, 6, 15, 45),
-          end: new Date(2021, 5, 6, 16, 30),
-        },
-      ]
+    const [events, setEvents] = useState([]);
+
       useEffect(() => {
         navigation.setOptions({
           headerRight: () => (
@@ -42,10 +32,17 @@ function actualcalendarScreen({ route, navigation }) {
           ),
         });
       });
-     
+      useEffect(() => {
+          if (route.params?.send) {
+            setEvents([...events, route.params.send])
+            console.log("this worked?")
+          }
+      },[route.params?.send])
     return (
         <View style={styles.container}> 
-            <Calendar events={events} height={600} style={{width: "100%", marginRight: 10,}}/>
+            <Calendar events={events} height={600} style={{width: "100%", marginRight: 10,}} swipeEnabled={true} eventCellStyle={(event) => {
+                return {backgroundColor: `${event.color}`}
+            }}/>
         </View>
     );
 }
@@ -65,4 +62,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    test: {
+        backgroundColor: 'red'
+    }
 });

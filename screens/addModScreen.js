@@ -10,6 +10,17 @@ import firebase from "../database/firebaseDB"
 
 export default function addModScreen() {
     return (
-        <View><Text>Modules</Text></View>
+        <View style={styles.container}>
+            <Text>Modules</Text>
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+});
