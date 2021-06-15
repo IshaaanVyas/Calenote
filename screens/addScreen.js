@@ -92,14 +92,12 @@ export default function addScreen( {navigation} ) {
                 onChange={endonChange}
             />}
         <TouchableOpacity onPress={() => {
-            //setSend({title: `${title}`, start: date, end: enddate, color: 'black',});
             console.log(send);
             navigation.navigate("Calendar", {send})
             }}><AntDesign name="checkcircleo" size={56} color="dodgerblue" style={{marginLeft: 140, marginTop: 40}} /></TouchableOpacity>
         </View>
     );
 }
-/** setSend({title: `${title}`, start: date, end: enddate, color: `rgba(${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},${Math.floor(Math.random() * 256)},1.0)`}); */
 const styles = StyleSheet.create({
     container: {
       flex: 1,
