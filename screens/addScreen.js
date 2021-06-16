@@ -68,7 +68,7 @@ export default function addScreen( {navigation} ) {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.goBack()}><Ionicons name="chevron-back-circle-sharp" size={48} color="dodgerblue" style={{marginLeft: 20, marginTop: 25}}/></TouchableOpacity>
-            <TextInput placeholder="Add Title" style={styles.textInput} multiline={true} onChangeText={(text) => setTitle(text)}></TextInput>
+            <TextInput placeholder="Add Title" style={styles.textInput} multiline={true} onChangeText={(text) => {setTitle(text)}}></TextInput>
             <Text style={styles.Text}>Start:</Text>
             <TouchableOpacity onPress={showDatepicker}><Text style={styles.datetime}>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</Text></TouchableOpacity>
             <TouchableOpacity onPress={showTimepicker}><Text style={styles.datetime}>{date.getHours()}:{(date.getMinutes()<10?'0':'') + date.getMinutes()}</Text></TouchableOpacity>

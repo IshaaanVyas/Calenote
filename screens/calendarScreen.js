@@ -14,6 +14,7 @@ import { Feather } from '@expo/vector-icons';
 
 const calendarStack = createStackNavigator();
 
+
 function actualcalendarScreen({ route, navigation }) {
     const [events, setEvents] = useState([]);
     const [show, setShow] = useState(false);
@@ -69,6 +70,16 @@ function actualcalendarScreen({ route, navigation }) {
             console.log("this worked?")
           }
       },[route.params?.send])
+
+      useEffect(() => {
+        if (route.params?.sendMod) {
+          var lesgo = route.params.sendMod;
+          for (var i = 0; i < lesgo.length; i++){
+            firebase.firestore().collection("events").add(lesgo[i]);
+          }
+          console.log("this worked?")
+        }
+      },[route.params?.sendMod] )
      
       function eventInfo(event) {
             setShow(true);
@@ -83,7 +94,7 @@ function actualcalendarScreen({ route, navigation }) {
         <View style={styles.container}> 
             <Calendar events={events} height={600} style={{width: "100%", marginRight: 10,}} swipeEnabled={true} eventCellStyle={(event) => {
                 return {backgroundColor: `${event.color}`}
-            }} onPressEvent={eventInfo} />
+            }} onPressEvent={eventInfo} scrollOffsetMinutes={480} date={new Date(2021, 0, 11, 0, 0)}/>
             {show && 
                 <View style={[styles.moreStuff, {backgroundColor: `${currColor}`}]}>
                     <TouchableOpacity onPress={() => setShow(false)}><Entypo name="cross" size={24} color="white" /></TouchableOpacity>
@@ -138,5 +149,6 @@ const styles = StyleSheet.create({
     timestuff: {
         fontSize: 15,
         color: "white",
+        paddingRight: 25,
     }
 });
