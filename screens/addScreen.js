@@ -28,7 +28,6 @@ export default function addScreen( {navigation} ) {
         const currentDate = (selectedDate || date);
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
-        console.log(currentDate.getMinutes());
       };
     
       const showMode = (currentMode) => {
@@ -46,9 +45,10 @@ export default function addScreen( {navigation} ) {
       ////////////////////////////////////////////////
 
       const endonChange = (event, selectedDate) => {
-        const endcurrentDate = (selectedDate || enddate);
+        const endcurrentDate = (selectedDate >= date) ? (selectedDate || enddate) : null;
         endsetShow(Platform.OS === 'ios');
-        endsetDate(endcurrentDate);
+        if (endcurrentDate !== null) {
+          endsetDate(endcurrentDate);}
       };
     
       const endshowMode = (currentMode) => {
@@ -92,7 +92,6 @@ export default function addScreen( {navigation} ) {
                 onChange={endonChange}
             />}
         <TouchableOpacity onPress={() => {
-            console.log(send);
             navigation.navigate("Calendar", {send})
             }}><AntDesign name="checkcircleo" size={56} color="dodgerblue" style={{marginLeft: 140, marginTop: 40}} /></TouchableOpacity>
         </View>

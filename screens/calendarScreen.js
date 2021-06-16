@@ -37,7 +37,6 @@ function actualcalendarScreen({ route, navigation }) {
                   return {title: `${doc.title}`, start: new Date(doc.start.toDate()), end: new Date(doc.end.toDate()), color: doc.color, id: doc.id,}
                   })
               setEvents(updatedEvents);
-              console.log(updatedEvents);
           });
 
           return () => {
@@ -65,9 +64,7 @@ function actualcalendarScreen({ route, navigation }) {
       });
       useEffect(() => {
           if (route.params?.send) {
-            //setEvents([...events, route.params.send])
             firebase.firestore().collection("events").add(route.params.send);
-            console.log("this worked?")
           }
       },[route.params?.send])
 
@@ -77,7 +74,6 @@ function actualcalendarScreen({ route, navigation }) {
           for (var i = 0; i < lesgo.length; i++){
             firebase.firestore().collection("events").add(lesgo[i]);
           }
-          console.log("this worked?")
         }
       },[route.params?.sendMod] )
      
@@ -109,7 +105,6 @@ function actualcalendarScreen({ route, navigation }) {
                      <Text style={[styles.timestuff, {marginLeft: 1, marginTop: 3}]}>:    On</Text>
                      </View>
                      <TouchableOpacity onPress={() => {
-                         console.log("deleting" + " " + currID)
                          firebase.firestore().collection("events").doc(currID).delete();
                          setShow(false);
                      }}><Feather name="trash" size={24} color="white"  style={{marginLeft: 85, marginTop: 120}}/></TouchableOpacity>

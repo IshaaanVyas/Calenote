@@ -57,7 +57,6 @@ export default function addModScreen( {navigation} ) {
             if ((highlightMod[i].content.lessonType == 'Lecture') || (highlightMod[i].content.lessonType == 'Sectional Teaching')) lessonColor = 'black';
             else if ((highlightMod[i].content.lessonType == 'Tutorial')) lessonColor = 'dodgerblue';
             else if ((highlightMod[i].content.lessonType == 'Laboratory')) lessonColor = 'red';
-            console.log(adday);
             for (var j = 0; j < highlightMod[i].content.weeks.length; j++) {
                 var week = highlightMod[i].content.weeks[j] - 1;
                 if (week > 5) week++;
@@ -72,11 +71,10 @@ export default function addModScreen( {navigation} ) {
         }
         
         setSendMod(temp)
-        //console.log(sendMod);
+
     }, [highlightMod])
 
     useEffect(() => {
-        console.log("Begin to fetch data");
         loadNUSmodsData();
     }, [search])
 
@@ -87,14 +85,11 @@ export default function addModScreen( {navigation} ) {
         const responseData = await response?.json();
         const semData = responseData?.semesterData?.filter((item) => item?.semester == sem)[0]?.timetable
         if (semData) setElements(semData);
-        //console.log(typeof(semData[0].classNo));
         }
       }
       function renderItem({item, index}) {
         function selectMod() {
             setHighlightMod([...highlightMod, {number: index, content: item}])
-            //console.log(highlightMod.filter((item) => item === index))
-            //console.log(firstweekone);
             if (highlightMod.filter((item) => item?.number == index)[0]?.number === index) setHighlightMod(highlightMod.filter((item) => item?.number != index));
         }
 
